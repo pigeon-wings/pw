@@ -68,7 +68,7 @@ private PlaceOrderRegPage placeOrderRegPage;
     @And("User select payment method {string} and click continue")
     public void choosePaymentMethod(String payMethod) {
         payMethod="Credit Card";
-        this.placeOrderRegPage.chooseCardMethod();
+        this.placeOrderRegPage.chooseCardMethod(payMethod);
     }
 
     @And("User select {string} card and input card information")
