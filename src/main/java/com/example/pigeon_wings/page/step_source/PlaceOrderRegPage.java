@@ -70,7 +70,7 @@ public class PlaceOrderRegPage extends Base {
     public void setQuantity(int quantity){
 
     }
-    public void addToCart(String set){
+    public void addToCart(String cartButton){
 
 
     }
