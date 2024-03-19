@@ -1,4 +1,4 @@
-package com.example.pigeon_wings.page.registration;
+package com.example.pigeon_wings.page.step_source;
 
 import com.example.pigeon_wings.Base;
 import com.example.pigeon_wings.factory.annotation.LazyAutowired;
@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.springframework.util.Assert;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Page
 public class NopRegistrationPage extends Base {
@@ -25,9 +26,9 @@ public class NopRegistrationPage extends Base {
     private WebElement lastName;
     @FindBy(name="DateOfBirthDay")
     private WebElement day;
-    @FindBy(id="DateOfBirthMonth")
+    @FindBy(name="DateOfBirthMonth")
     private WebElement month;
-    @FindBy(id="DateOfBirthYear")
+    @FindBy(name="DateOfBirthYear")
     private WebElement year;
     @FindBy(id="Email")
     private WebElement email;
@@ -39,7 +40,7 @@ public class NopRegistrationPage extends Base {
     private WebElement password;
     @FindBy(id="ConfirmPassword")
     private WebElement retypePassword;
-    @FindBy(id="submitBtn")
+    @FindBy(id="register-button")
     private WebElement submit;
     @FindBy(xpath="//div[@class='result']")
     private WebElement confirmation;
@@ -69,10 +70,10 @@ else
     public void setBirthDate(LocalDate localDate){
         new Select(this.year).selectByVisibleText(String.valueOf(localDate.getYear()));
         new Select(this.day).selectByVisibleText(String.valueOf(localDate.getDayOfMonth()));
-        new Select(this.month).selectByValue(localDate.getMonth().toString());
+        new Select(this.month).selectByValue(String.valueOf(localDate.getMonthValue()));
     }
     public void setContactDetails(String email){
-        this.email.sendKeys(email);
+        this.email.sendKeys(Objects.toString(email, ""));
 
     }
     public void setCompanyDetails(String companyName){
@@ -83,7 +84,6 @@ else
         if(not_subs.equals("unchecked")) {
             this.newsletterStatus.click();
         }
-
     }
 
     public void setPassword(String password){

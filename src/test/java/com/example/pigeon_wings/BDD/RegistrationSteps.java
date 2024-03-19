@@ -1,18 +1,17 @@
 package com.example.pigeon_wings.BDD;
 
 import com.example.pigeon_wings.factory.annotation.LazyAutowired;
-import com.example.pigeon_wings.page.registration.NopRegistrationPage;
+import com.example.pigeon_wings.page.step_source.NopRegistrationPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-@CucumberContextConfiguration
-@SpringBootTest
+
 public class RegistrationSteps {
     @LazyAutowired
     private NopRegistrationPage regPage;
@@ -38,7 +37,8 @@ public class RegistrationSteps {
 
     @When("User set {string} as date of birth")
     public void selectDob(String dob) {
-        this.regPage.setBirthDate(LocalDate.parse(dob));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        this.regPage.setBirthDate(LocalDate.parse(dob, dtf));
     }
 
     @When("User set {string} as email")
