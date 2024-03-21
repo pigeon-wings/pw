@@ -1,17 +1,17 @@
 package com.example.pigeon_wings.BDD;
 
+import com.example.pigeon_wings.entity.BillInfo;
 import com.example.pigeon_wings.factory.annotation.LazyAutowired;
-import com.example.pigeon_wings.page.step_source.NopRegistrationPage;
 import com.example.pigeon_wings.page.step_source.PlaceOrderRegPage;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@CucumberContextConfiguration
-@SpringBootTest
+import java.io.FileNotFoundException;
+
+
 public class PlaceOrderSteps {
 
     @LazyAutowired
@@ -55,30 +55,33 @@ private PlaceOrderRegPage placeOrderRegPage;
     }
 
     @And("User input all the billing details and click continue")
-    public void inputRequiredDetails() {
-        this.placeOrderRegPage.inputRequiredDetails();
+    public void inputRequiredDetails() throws FileNotFoundException, InterruptedException {
+        BillInfo u= new BillInfo();
+        this.placeOrderRegPage.inputRequiredDetails(u);
     }
 
     @And("User select shipping method {string} and click continue")
-    public void chooseShippingMethod(String method) {
+    public void chooseShippingMethod(String method) throws InterruptedException {
         method="Next Day Air";
         this.placeOrderRegPage.chooseShippingMethod(method);
+        //we should cut the popup and then the code will run smoothly.. For short time...
     }
 
     @And("User select payment method {string} and click continue")
-    public void choosePaymentMethod(String payMethod) {
+    public void choosePaymentMethod(String payMethod) throws InterruptedException {
         payMethod="Credit Card";
         this.placeOrderRegPage.chooseCardMethod(payMethod);
+
     }
 
     @And("User select {string} card and input card information")
-    public void selectInputDetails(String cardInfo) {
+    public void selectInputDetails(String cardInfo) throws InterruptedException {
         cardInfo="Visa";
         this.placeOrderRegPage.chooseCardMethod(cardInfo);
     }
 
     @And("User click confirm button to place the order")
-    public void clickConfirmButton() {
+    public void clickConfirmButton() throws InterruptedException {
         this.placeOrderRegPage.confirmPurchase();
     }
 

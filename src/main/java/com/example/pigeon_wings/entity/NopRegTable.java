@@ -1,9 +1,11 @@
 package com.example.pigeon_wings.entity;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Lazy;
 
 import java.sql.Date;
 
+@Lazy
 @Entity
 public class NopRegTable {
     @Id @GeneratedValue(strategy= GenerationType.IDENTITY)

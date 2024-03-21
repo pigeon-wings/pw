@@ -1,6 +1,7 @@
 @placeOrder
 Feature: Nopcommerce place order feature Test
 
+
   @test-2
   Scenario: User should be able to successfully place order as a guest user
     Given User go to the NopCommerce Home page

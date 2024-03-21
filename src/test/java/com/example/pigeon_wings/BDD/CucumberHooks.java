@@ -4,9 +4,8 @@ package com.example.pigeon_wings.BDD;
 import com.example.pigeon_wings.Base;
 import com.example.pigeon_wings.factory.annotation.LazyAutowired;
 import com.example.pigeon_wings.factory.service.ScreenshotService;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Scenario;
+import com.example.pigeon_wings.page.step_source.NopRegistrationPage;
+import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
 import org.springframework.context.ApplicationContext;
 
@@ -18,6 +17,13 @@ public class CucumberHooks extends Base {
     private ScreenshotService screenshotService;
     @LazyAutowired
     private ApplicationContext applicationContext;
+//    @LazyAutowired
+//    private NopRegistrationPage regPage;
+//
+//    @Before
+//    public void launchHomePage(Scenario scenario) throws IOException {
+//        this.regPage.goTo();
+//    }
 
     @AfterStep
     public void afterStep(Scenario scenario) throws IOException {
@@ -29,10 +35,10 @@ public class CucumberHooks extends Base {
 
         }
     }
-   // @After
-   // public void afterScenario(){
-    //        this.applicationContext.getBean(WebDriver.class).quit();
-    //    }
+    @After
+    public void afterScenario(){
+            this.applicationContext.getBean(WebDriver.class).quit();
+        }
 
 
 

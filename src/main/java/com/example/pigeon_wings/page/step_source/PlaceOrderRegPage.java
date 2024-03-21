@@ -1,119 +1,159 @@
 package com.example.pigeon_wings.page.step_source;
 
-import com.example.pigeon_wings.Base;
+
+import com.example.pigeon_wings.entity.BillInfo;
 import com.example.pigeon_wings.factory.annotation.LazyAutowired;
 import com.example.pigeon_wings.factory.annotation.Page;
+import com.example.pigeon_wings.page.step_source.sub_source.BillFormFilling;
+import com.example.pigeon_wings.repository.BillInfoRepository;
 import com.github.javafaker.Faker;
+import org.apache.commons.io.input.BOMInputStream;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
-import org.springframework.util.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.TestPropertySource;
+import org.testng.ITestContext;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+
 @Page
-public class PlaceOrderRegPage extends Base {
-    @FindBy(xpath="//a[normalize-space()='Electronics']")
-    private WebElement electronics;
-    @FindBy(xpath="//a[normalize-space()='Cell phones']")
+public class PlaceOrderRegPage extends BillFormFilling {
+
+    @FindBy(xpath="//ul[@class='top-menu notmobile']//a[normalize-space()='Electronics']")
+    private WebElement Electronics;
+    @FindBy(xpath="(//a[normalize-space()='Cell phones'])[3]")
     private WebElement cell_phone;
-    @FindBy(id="gender-male")//Nokia Lumia 1020
+    @FindBy(xpath="//a[normalize-space()='Nokia Lumia 1020']")//Nokia Lumia 1020
     private WebElement nokia_lumia;
-    @FindBy(id="gender-female")
-    private WebElement femaleGender;
-    @FindBy(id="FirstName")
-    private WebElement firstName;
-    @FindBy(id="LastName")
-    private WebElement lastName;
-    @FindBy(name="DateOfBirthDay")
-    private WebElement day;
-    @FindBy(name="DateOfBirthMonth")
-    private WebElement month;
-    @FindBy(name="DateOfBirthYear")
-    private WebElement year;
-    @FindBy(id="Email")
-    private WebElement email;
-    @FindBy(id="Company")
-    private WebElement companyName;
-    @FindBy(id="Newsletter")
-    private WebElement newsletterStatus;
-    @FindBy(id="Password")
-    private WebElement password;
-    @FindBy(id="ConfirmPassword")
-    private WebElement retypePassword;
-    @FindBy(id="register-button")
-    private WebElement submit;
-    @FindBy(xpath="//div[@class='result']")
-    private WebElement confirmation;
+    @FindBy(id="product_enteredQuantity_20")
+    private WebElement setQuantity;
+    @FindBy(id="add-to-cart-button-20")
+    private WebElement btnCart;
+    @FindBy(xpath="//span[@class='cart-label']")
+    private WebElement shopping_cart;
+    @FindBy(id="termsofservice")
+    private WebElement terms_conditions;
+    @FindBy(id="checkout")
+    private WebElement checkout_btn;
+    @FindBy(xpath="//button[normalize-space()='Checkout as Guest']")
+    private WebElement check_guest_btn;
+    @FindBy(xpath="//h2[normalize-space()='Billing address']")
+    private WebElement billingPortionClick;
+    @FindBy(name="save")
+    private WebElement billingContinueBtn;
+    @FindBy(id="shippingoption_1")
+    private WebElement shippingNextDayAir;
+    @FindBy(xpath="//button[@class='button-1 shipping-method-next-step-button']")
+    private WebElement shippingContinueBtn;
+    @FindBy(id="paymentmethod_1")
+    private WebElement paymentCredit;
+    @FindBy(name="save")
+    private WebElement paymentContinueBtn;
+    @FindBy(xpath="//button[@class='button-1 payment-info-next-step-button']")
+    private WebElement paymentInfoContinueBtn;
+    @FindBy(xpath="//strong[normalize-space()='Your order has been successfully processed!']")
+    private WebElement purchaseConfirmMessage;
+    @FindBy(xpath="//button[normalize-space()='Confirm']")
+    private WebElement purchaseConfirmBtn;
+    @FindBy(xpath="//button[normalize-space()='Continue']")
+    private WebElement purchaseEndingContinueBtn;
 
     @LazyAutowired
     private Faker faker;
+    @Autowired
+    private BillFormFilling placePage;
+    @Autowired
+    private BillInfoRepository repository;
 
-
-    public void goTo(){
-        this.driver.get("https://demo.nopcommerce.com/");
-    }
     public void clickOnCellPhone(String category, String content) throws InterruptedException {
-//        Actions //actions = new Actions(this.driver);
-//        actions.moveToElement(electronics)
-//                .moveToElement(cell_phone)
-//                .click().build().perform();
-//        Actions actions = new Actions(this.driver);
-//        Thread.sleep(1000);
-//        actions.moveToElement(electronics).perform();
-//        actions.moveToElement(cell_phone).perform();
-//        actions.click().build().perform();
+
+//       Actions // actions= new Actions(this.driver);
+//        actions.moveToElement(Electronics).click(cell_phone).build().perform();
+        this.Electronics.click();
+        this.cell_phone.click();
+
     }
     public void clickOnProduct(String product){
-
+this.nokia_lumia.click();
     }
     public void setQuantity(int quantity){
-
+this.setQuantity.sendKeys("2");
     }
     public void addToCart(String cartButton){
-
+this.btnCart.click();
 
     }
     public void goToShippingPage(){
 
+this.shopping_cart.click();
 
     }
     public void performCheckout(){
-
+        this.terms_conditions.click();
+this.checkout_btn.click();
 
     }
 
     public void clickCheckoutAsGuest(){
-
-
-    }
-    public void inputRequiredDetails(){
-
-
-    }
-    public void chooseShippingMethod(String payMethod){
-
-
-    }
-    public void choosePaymentMethod(){
-
-
-    }
-    public void chooseCardMethod(String cardType){
-
-
-    }
-    public void confirmPurchase(){
-        this.submit.click();
+this.check_guest_btn.click();
 
     }
 
-    public String getConfirmationMsg(String txt){
-        this.wait.until((d)->this.confirmation.isDisplayed());
-        return this.confirmation.getText();
+    public void inputRequiredDetails(BillInfo u) throws InterruptedException {
+        String fName=faker.name().firstName();
+        String lName=faker.name().lastName();
+
+        this.setNames(fName, lName);
+        String bill_email= "pigeon.wings.elubilu+"+faker.name().firstName()+"@gmail.com";
+        this.setBillingEmail(bill_email);
+        this.setCompanyName(faker.name().nameWithMiddle());
+        this.placePage.setLocation("United States", "Florida", "dhaka", "4/24, mmirpur-12");
+        this.placePage.setContact("12345", "0144452221", "11123343");
+        billingPortionClick.click();
+        billingContinueBtn.click();
+    }
+
+    public void chooseShippingMethod(String shipMethod) throws InterruptedException {
+        Thread.sleep(3000);
+this.shippingNextDayAir.click();
+
+    }
+    public void choosePaymentMethod(String payMethod) throws InterruptedException {
+        Thread.sleep(3000);
+this.shippingContinueBtn.click();
+
+    }
+    public void chooseCardMethod(String cardType) throws InterruptedException {
+        Thread.sleep(3000);
+this.paymentCredit.click();
+
+    }
+    public void confirmPurchase() throws InterruptedException {
+        Thread.sleep(3000);
+this.paymentContinueBtn.click();
+this.paymentInfoContinueBtn.click();
+this.purchaseConfirmBtn.click();
+    }
+
+    public void getConfirmationMsg(String txt){
+
+        this.wait.until((d)->this.purchaseConfirmMessage.isDisplayed());
+        assert this.purchaseConfirmMessage.getText().equals(txt);
+        this.purchaseConfirmBtn.click();
+        this.purchaseEndingContinueBtn.click();
+
     }
     @Override
     public boolean isAt() {
-        return this.wait.until((d)->this.firstName.isDisplayed());
+        return this.wait.until((d)->this.purchaseConfirmMessage.isDisplayed());
     }
 }

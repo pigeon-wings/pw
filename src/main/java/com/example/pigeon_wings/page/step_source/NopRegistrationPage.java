@@ -1,5 +1,6 @@
 package com.example.pigeon_wings.page.step_source;
 
+
 import com.example.pigeon_wings.Base;
 import com.example.pigeon_wings.factory.annotation.LazyAutowired;
 import com.example.pigeon_wings.factory.annotation.Page;
@@ -50,7 +51,8 @@ public class NopRegistrationPage extends Base {
 
 
     public void goTo(){
-        this.driver.get("https://demo.nopcommerce.com/");
+        this.driver.get(
+                "https://demo.nopcommerce.com/");
     }
     public void goToReg(){
         regPageNavi.click();
@@ -73,6 +75,9 @@ else
         new Select(this.month).selectByValue(String.valueOf(localDate.getMonthValue()));
     }
     public void setContactDetails(String email){
+
+        email= "pigeon.wings.elubilu+"+faker.name().firstName()+"@gmail.com";
+
         this.email.sendKeys(Objects.toString(email, ""));
 
     }
@@ -95,7 +100,7 @@ else
         this.submit.click();
     }
     public void getConfirmationText(String txt){
-        this.wait.until((d)->this.confirmation.isDisplayed());
+      //  this.wait.until((d)->this.confirmation.isDisplayed());
         Assert.isTrue(this.confirmation.isDisplayed(),txt);
     }
     @Override
