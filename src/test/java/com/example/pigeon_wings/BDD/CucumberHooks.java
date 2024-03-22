@@ -25,16 +25,16 @@ public class CucumberHooks extends Base {
 //        this.regPage.goTo();
 //    }
 
-    @AfterStep
-    public void afterStep(Scenario scenario) throws IOException {
-
-        if (scenario.isFailed()) {
-
-            byte[] byteArray = this.screenshotService.getScreenshotService();
-            scenario.attach(byteArray, "image/png", scenario.getName());
-
-        }
-    }
+//    @AfterStep
+//    public void afterStep(Scenario scenario) throws IOException {
+//
+//        if (scenario.isFailed()) {
+//
+//            byte[] byteArray = this.screenshotService.getScreenshotService();
+//            scenario.attach(byteArray, "image/png", scenario.getName());
+//
+//        }
+//    }
     @After
     public void afterScenario(){
             this.applicationContext.getBean(WebDriver.class).quit();

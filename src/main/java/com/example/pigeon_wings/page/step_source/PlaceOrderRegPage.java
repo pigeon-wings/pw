@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
@@ -58,9 +59,9 @@ public class PlaceOrderRegPage extends BillFormFilling {
     private WebElement shippingNextDayAir;
     @FindBy(xpath="//button[@class='button-1 shipping-method-next-step-button']")
     private WebElement shippingContinueBtn;
-    @FindBy(id="paymentmethod_1")
+    @FindBy(xpath="//input[@id='paymentmethod_1']")
     private WebElement paymentCredit;
-    @FindBy(name="save")
+    @FindBy(xpath="//button[@class='button-1 payment-method-next-step-button']")
     private WebElement paymentContinueBtn;
     @FindBy(xpath="//button[@class='button-1 payment-info-next-step-button']")
     private WebElement paymentInfoContinueBtn;
@@ -124,38 +125,60 @@ this.check_guest_btn.click();
         this.placePage.setContact("12345", "0144452221", "11123343");
         billingPortionClick.click();
         billingContinueBtn.click();
+//        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@src, 'https://ogs.google.com/widget/callout')]")));
+//        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='No thanks']"))).click();
+//        driver.switchTo().defaultContent();
+//        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.name("q"))).sendKeys("Diksha Rewatkar");
+
     }
 
     public void chooseShippingMethod(String shipMethod) throws InterruptedException {
         Thread.sleep(3000);
 this.shippingNextDayAir.click();
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@src, 'https://ogs.google.com/widget/callout')]")));
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='No thanks']"))).click();
-        driver.switchTo().defaultContent();
-        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.name("q"))).sendKeys("Diksha Rewatkar");
+        this.shippingContinueBtn.click();
     }
     public void choosePaymentMethod(String payMethod) throws InterruptedException {
         Thread.sleep(3000);
-this.shippingContinueBtn.click();
-
+        this.paymentCredit.click();
+        this.paymentContinueBtn.click();
     }
+
+   @FindBy(xpath="//select[@id='CreditCardType']")
+   private WebElement cardType;
+
+    @FindBy(xpath="//input[@id='CardholderName']")
+    private WebElement cHolderName;
+
+    @FindBy(xpath="//input[@id='CardNumber']")
+    private WebElement cardNumber;
+    @FindBy(xpath="//select[@id='ExpireMonth']")
+    private WebElement expire_month;
+    @FindBy(xpath="//select[@id='ExpireYear']")
+    private WebElement expire_year;
+    @FindBy(xpath="//input[@id='CardCode']")
+    private WebElement card_code;
+
     public void chooseCardMethod(String cardType) throws InterruptedException {
         Thread.sleep(3000);
-this.paymentCredit.click();
+        new Select(this.cardType).selectByVisibleText("Visa");
+        this.cHolderName.sendKeys(faker.name().fullName());
+        this.cardNumber.sendKeys("4242424242424242424242");
+        new Select(this.expire_month).selectByVisibleText("12");
+        new Select(this.expire_year).selectByVisibleText("2025");
+        this.card_code.sendKeys("123");
 
+        this.paymentInfoContinueBtn.click();
     }
     public void confirmPurchase() throws InterruptedException {
         Thread.sleep(3000);
-this.paymentContinueBtn.click();
-this.paymentInfoContinueBtn.click();
 this.purchaseConfirmBtn.click();
+
     }
 
     public void getConfirmationMsg(String txt){
 
         this.wait.until((d)->this.purchaseConfirmMessage.isDisplayed());
         assert this.purchaseConfirmMessage.getText().equals(txt);
-        this.purchaseConfirmBtn.click();
         this.purchaseEndingContinueBtn.click();
 
     }

@@ -70,7 +70,7 @@ private PlaceOrderRegPage placeOrderRegPage;
     @And("User select payment method {string} and click continue")
     public void choosePaymentMethod(String payMethod) throws InterruptedException {
         payMethod="Credit Card";
-        this.placeOrderRegPage.chooseCardMethod(payMethod);
+        this.placeOrderRegPage.choosePaymentMethod(payMethod);
 
     }
 
