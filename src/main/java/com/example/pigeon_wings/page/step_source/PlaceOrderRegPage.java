@@ -8,8 +8,11 @@ import com.example.pigeon_wings.page.step_source.sub_source.BillFormFilling;
 import com.example.pigeon_wings.repository.BillInfoRepository;
 import com.github.javafaker.Faker;
 import org.apache.commons.io.input.BOMInputStream;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestPropertySource;
 import org.testng.ITestContext;
@@ -20,6 +23,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.Date;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -125,7 +129,10 @@ this.check_guest_btn.click();
     public void chooseShippingMethod(String shipMethod) throws InterruptedException {
         Thread.sleep(3000);
 this.shippingNextDayAir.click();
-
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//iframe[starts-with(@src, 'https://ogs.google.com/widget/callout')]")));
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='No thanks']"))).click();
+        driver.switchTo().defaultContent();
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.name("q"))).sendKeys("Diksha Rewatkar");
     }
     public void choosePaymentMethod(String payMethod) throws InterruptedException {
         Thread.sleep(3000);
