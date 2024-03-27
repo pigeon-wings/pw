@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 
 @CucumberContextConfiguration
 @SpringBootTest
-@EnableScheduling
 public class RegistrationSteps {
     @LazyAutowired
     private NopRegistrationPage regPage;

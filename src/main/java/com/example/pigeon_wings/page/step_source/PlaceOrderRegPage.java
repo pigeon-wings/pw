@@ -114,10 +114,10 @@ this.check_guest_btn.click();
     }
 
     public void inputRequiredDetails(BillInfo u) throws InterruptedException {
-        String fName=faker.name().firstName();
-        String lName=faker.name().lastName();
+        String fstName=faker.name().firstName();
+        String lstName=faker.name().lastName();
 
-        this.placePage.setNames(fName, lName);
+        this.placePage.setNames(fstName, lstName);
         String bill_email= "pigeon.wings.elubilu+"+faker.name().firstName()+"@gmail.com";
         this.placePage.setBillingEmail(bill_email);
         this.placePage.setCompanyName(faker.name().nameWithMiddle());

@@ -22,7 +22,6 @@ import org.testng.annotations.DataProvider;
 public class CucumberRunner extends AbstractTestNGCucumberTests {
         @Override
         @DataProvider(parallel = false)
-        @Scheduled(initialDelay=1000, fixedRate=1000)
         public Object[][] scenarios() {
                 return super.scenarios();
         }
