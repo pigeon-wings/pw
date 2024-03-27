@@ -1,8 +1,9 @@
 package com.example.pigeon_wings;
 
 import io.cucumber.core.cli.Main;
-import org.apache.commons.mail.EmailException;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -17,15 +18,20 @@ public class ScheduleRun {
                 String [] argv = new String[]{ "-g","","classpath:features", "--plugin", "html:D:/SpringBootCourse/IntellijWorkSpace/screenshotStore/report_nop.html"};
               ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
                 Main.run(argv, contextClassLoader);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 SendAutoEmail cls = new SendAutoEmail();
                 try {
-                    cls.sendReportEmail();
-                } catch (EmailException e) {
+                    SendAutoEmail.sendReportEmail();
+                } catch (IOException | MessagingException e) {
                     throw new RuntimeException(e);
                 }
                 System.out.println("running ");
 
-            }, calculateDelay(), 5*60, TimeUnit.SECONDS); // Run every 24 hours
+            }, calculateDelay(), 24*60*60, TimeUnit.SECONDS); // Run every 24 hours
         }
 
         // Calculate the delay until 12 AM
@@ -37,7 +43,7 @@ public class ScheduleRun {
             nextRun.set(Calendar.SECOND, 0);
             nextRun.set(Calendar.MILLISECOND, 0);
             if (nextRun.before(now)) {
-                nextRun.add(Calendar.MINUTE, 1);
+                nextRun.add(Calendar.DATE, 1);
             }
             return nextRun.getTimeInMillis() - now.getTimeInMillis();
         }
