@@ -1,6 +1,7 @@
 package com.example.pigeon_wings;
 
 import io.cucumber.core.cli.Main;
+import org.apache.commons.mail.EmailException;
 
 import java.util.Calendar;
 import java.util.concurrent.Executors;
@@ -16,7 +17,12 @@ public class ScheduleRun {
                 String [] argv = new String[]{ "-g","","classpath:features", "--plugin", "html:D:/SpringBootCourse/IntellijWorkSpace/screenshotStore/report_nop.html"};
               ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
                 Main.run(argv, contextClassLoader);
-
+                SendAutoEmail cls = new SendAutoEmail();
+                try {
+                    cls.sendReportEmail();
+                } catch (EmailException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println("running ");
 
             }, calculateDelay(), 5*60, TimeUnit.SECONDS); // Run every 24 hours
