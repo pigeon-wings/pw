@@ -13,9 +13,10 @@ public class ScheduleRun {
 
             // Schedule the task to run every day at 12 AM
             executor.scheduleAtFixedRate(() -> {
-                String [] argv = new String[]{ "-g","","classpath:features"};
-                ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-                byte exitstatus = Main.run(argv, contextClassLoader);
+                String [] argv = new String[]{ "-g","","classpath:features", "--plugin", "html:D:/SpringBootCourse/IntellijWorkSpace/screenshotStore/report_nop.html"};
+              ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+                Main.run(argv, contextClassLoader);
+
                 System.out.println("running ");
 
             }, calculateDelay(), 5*60, TimeUnit.SECONDS); // Run every 24 hours
