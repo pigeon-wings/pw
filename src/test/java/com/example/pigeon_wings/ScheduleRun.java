@@ -3,6 +3,8 @@ package com.example.pigeon_wings;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.testng.annotations.DataProvider;
 
 import java.util.Calendar;
 import java.util.concurrent.Executors;
@@ -15,22 +17,10 @@ public class ScheduleRun {
 
             // Schedule the task to run every day at 12 AM
             executor.scheduleAtFixedRate(() -> {
-                @CucumberOptions(
 
-                        features = "classpath:features",
-                        glue = "com.example.pigeon_wings.BDD",
-                        //tags = "@test-1 and @test-2",
-                        plugin = {
-                                "pretty",
-                                "html:D:/SpringBootCourse/IntellijWorkSpace/screenshotStore/report_nop.html"
+                System.out.println("running ");
 
-                        }
-
-                )
-                class CucumberRunner extends AbstractTestNGCucumberTests {
-                }
-
-            }, calculateDelay(), 24*60*60, TimeUnit.SECONDS); // Run every 24 hours
+            }, calculateDelay(), 60, TimeUnit.SECONDS); // Run every 24 hours
         }
 
         // Calculate the delay until 12 AM
@@ -42,7 +32,7 @@ public class ScheduleRun {
             nextRun.set(Calendar.SECOND, 0);
             nextRun.set(Calendar.MILLISECOND, 0);
             if (nextRun.before(now)) {
-                nextRun.add(Calendar.DATE, 1);
+                nextRun.add(Calendar.SECOND, 1);
             }
             return nextRun.getTimeInMillis() - now.getTimeInMillis();
         }

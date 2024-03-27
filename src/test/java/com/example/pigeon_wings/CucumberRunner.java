@@ -3,6 +3,7 @@ package com.example.pigeon_wings;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.junit.runner.RunWith;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
@@ -17,9 +18,11 @@ import org.testng.annotations.DataProvider;
         }
 
 )
+
 public class CucumberRunner extends AbstractTestNGCucumberTests {
         @Override
         @DataProvider(parallel = false)
+        @Scheduled(initialDelay=1000, fixedRate=1000)
         public Object[][] scenarios() {
                 return super.scenarios();
         }

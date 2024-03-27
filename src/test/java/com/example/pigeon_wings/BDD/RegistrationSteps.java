@@ -8,12 +8,14 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @CucumberContextConfiguration
 @SpringBootTest
+@EnableScheduling
 public class RegistrationSteps {
     @LazyAutowired
     private NopRegistrationPage regPage;

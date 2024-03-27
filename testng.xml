@@ -1,0 +1,5 @@
+<bean id="cronTrigger" class="com.example.pigeon_wings.CucumberRunner">
+    <property name="jobDetail" ref="exampleJob" />
+    <!-- run every morning at 6 AM -->
+    <property name="cronExpression" value="0 0 6 * * ?" />
+</bean>
