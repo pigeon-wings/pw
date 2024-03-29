@@ -31,7 +31,7 @@ public class ScheduleRun {
                 }
                 System.out.println("running ");
 
-            }, calculateDelay(), 24*60*60, TimeUnit.SECONDS);
+            }, calculateDelay(), 2*60, TimeUnit.SECONDS);
         }
 
         // Calculate the delay until 12 AM

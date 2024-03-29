@@ -11,13 +11,13 @@ import org.openqa.selenium.support.ui.Select;
 
 @PageFragment
 public class BillFormFilling extends Base {
-    @FindBy(id="BillingNewAddress_FirstName")
+    @FindBy(xpath="//input[@id='BillingNewAddress_FirstName']")
     private WebElement billiingfName;
-    @FindBy(id="BillingNewAddress_LastName")
+    @FindBy(xpath="//input[@id='BillingNewAddress_LastName']")
     private WebElement billinglName;
-    @FindBy(id="BillingNewAddress_Email")
+    @FindBy(xpath="//input[@id='BillingNewAddress_Email']")
     private WebElement billingEmail;
-    @FindBy(id="BillingNewAddress_Company")
+    @FindBy(xpath="//input[@id='BillingNewAddress_Company']")
     private WebElement companyName;
     @FindBy(id="BillingNewAddress_CountryId")
     private WebElement selectCountry;
@@ -37,6 +37,7 @@ public class BillFormFilling extends Base {
 
 
     public void setNames(String firstName, String lastName) {
+        this.wait.until((d)->this.billiingfName.isDisplayed());
         this.billiingfName.sendKeys(firstName);
         this.billinglName.sendKeys(lastName);
     }

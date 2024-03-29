@@ -57,7 +57,7 @@ private PlaceOrderRegPage placeOrderRegPage;
     @And("User input all the billing details and click continue")
     public void inputRequiredDetails() throws FileNotFoundException, InterruptedException {
         BillInfo u= new BillInfo();
-        this.placeOrderRegPage.inputRequiredDetails(u);
+        this.placeOrderRegPage.inputRequiredDetails();
     }
 
     @And("User select shipping method {string} and click continue")
