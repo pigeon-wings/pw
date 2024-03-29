@@ -31,7 +31,7 @@ public class ScheduleRun {
                 }
                 System.out.println("running ");
 
-            }, calculateDelay(), 24*60*60, TimeUnit.SECONDS); // Run every 24 hours
+            }, calculateDelay(), 24*60*60, TimeUnit.SECONDS);
         }
 
         // Calculate the delay until 12 AM
@@ -39,11 +39,11 @@ public class ScheduleRun {
             Calendar now = Calendar.getInstance();
             Calendar nextRun = Calendar.getInstance();
             nextRun.set(Calendar.HOUR_OF_DAY, 0);
-            nextRun.set(Calendar.MINUTE, 1);
+            nextRun.set(Calendar.MINUTE, 0);
             nextRun.set(Calendar.SECOND, 0);
             nextRun.set(Calendar.MILLISECOND, 0);
             if (nextRun.before(now)) {
-                nextRun.add(Calendar.DATE, 1);
+                nextRun.add(Calendar.MINUTE, 1);
             }
             return nextRun.getTimeInMillis() - now.getTimeInMillis();
         }

@@ -117,7 +117,7 @@ this.check_guest_btn.click();
         String fstName=faker.name().firstName();
         String lstName=faker.name().lastName();
 
-        this.placePage.setNames(fstName, lstName);
+        this.placePage.setNames(u.setFirstName(fstName), u.setLastName(lstName));
         String bill_email= "pigeon.wings.elubilu+"+faker.name().firstName()+"@gmail.com";
         this.placePage.setBillingEmail(bill_email);
         this.placePage.setCompanyName(faker.name().nameWithMiddle());
