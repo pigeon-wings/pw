@@ -64,7 +64,6 @@ private PlaceOrderRegPage placeOrderRegPage;
     public void chooseShippingMethod(String method) throws InterruptedException {
         method="Next Day Air";
         this.placeOrderRegPage.chooseShippingMethod(method);
-        //we should cut the popup and then the code will run smoothly.. For short time...
     }
 
     @And("User select payment method {string} and click continue")

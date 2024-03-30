@@ -55,6 +55,7 @@ public class NopRegistrationPage extends Base {
                 "https://demo.nopcommerce.com/");
     }
     public void goToReg(){
+        this.wait.until((d)->this.regPageNavi.isDisplayed());
         regPageNavi.click();
     }
     public void setGender(String genderType) {

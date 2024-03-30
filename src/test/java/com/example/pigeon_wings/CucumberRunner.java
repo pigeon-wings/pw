@@ -8,9 +8,9 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
 
-        features = "classpath:features",
+        features = {"classpath:features"},
         glue = "com.example.pigeon_wings.BDD",
-        //tags = "@registration and @placeOrder",
+        tags = "@test-1 or @test-2",
         plugin = {
                 "pretty",
                 "html:D:/SpringBootCourse/IntellijWorkSpace/screenshotStore/report_nop.html"

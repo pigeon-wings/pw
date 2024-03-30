@@ -174,17 +174,17 @@
                 <version>2.22.1</version>-->
 				<!--this is the current latest version
                 <version>3.2.5</version>-->
-				<configuration>
+				<!--<configuration>
 					<properties>
 						<property>
 							<name>dataproviderthreadcount</name>
-							<value>2</value>
+							<value>1</value>
 						</property>
 					</properties>
 					<includes>
 						<include>com.example.AccessFiles.CucumberRunner</include>
 					</includes>
-				</configuration>
+				</configuration> -->
 			</plugin>
 		</plugins>
 	</build>
