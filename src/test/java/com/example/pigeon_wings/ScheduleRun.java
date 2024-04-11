@@ -31,7 +31,7 @@ public class ScheduleRun {
                 }
                 System.out.println("running ");
 
-            }, calculateDelay(), 2*60, TimeUnit.SECONDS);
+            }, calculateDelay(), 2*60*60, TimeUnit.SECONDS);
         }
 
         // Calculate the delay until 12 AM
@@ -43,7 +43,7 @@ public class ScheduleRun {
             nextRun.set(Calendar.SECOND, 0);
             nextRun.set(Calendar.MILLISECOND, 0);
             if (nextRun.before(now)) {
-                nextRun.add(Calendar.MINUTE, 1);
+                nextRun.add(Calendar.Date, 1);
             }
             return nextRun.getTimeInMillis() - now.getTimeInMillis();
         }
