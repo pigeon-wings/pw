@@ -19,7 +19,9 @@ public class SendAutoEmail {
         String password = "U@hazzatun123";
         String fileName = "D:/SpringBootCourse/IntellijWorkSpace/screenshotStore/report_nop.html";
         String to = "bandhan.cse@gmail.com";
-
+//String to = "bandhan.cse@gmail.com, nisaun.elma@gmail.com";//it is for sending mail to multiple receipent
+    
+        
         System.out.println("===Test for Sending CommonsEmail started===");
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
@@ -48,6 +50,7 @@ public class SendAutoEmail {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(username);
         helper.setTo(to);
+        //helper.setTo(InternetAddress.parse(to));//it is for sending mail to multiple receipent
         helper.setSubject("subject");
         helper.setText("Body");
 
