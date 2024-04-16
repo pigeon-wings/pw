@@ -43,7 +43,7 @@ public class ScheduleRun {
             nextRun.set(Calendar.SECOND, 0);
             nextRun.set(Calendar.MILLISECOND, 0);
             if (nextRun.before(now)) {
-                nextRun.add(Calendar.Date, 1);
+                nextRun.add(Calendar.DATE, 1);
             }
             return nextRun.getTimeInMillis() - now.getTimeInMillis();
         }
